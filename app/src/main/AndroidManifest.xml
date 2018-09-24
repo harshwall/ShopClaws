@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.kunal.shopclaws">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".LoginRegister.MainActivity" />
+        <activity android:name=".LoginRegister.RegisterActivity" />
+        <activity android:name=".LoginRegister.PhoneAuth" />
+        <activity android:name=".Utility.GraphRevenue" />
+        <activity android:name=".LoginRegister.StartActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name=".LoginRegister.SmsListener">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".LoginRegister.RegisterActivityAdmin" />
+        <activity android:name=".Inventories.SellerInventory" />
+        <activity android:name=".Inventories.AdminInventory" />
+        <activity android:name=".UploadImage.UploadImage" />
+        <activity android:name=".Inventories.ItemDetailsActivity" />
+        <activity android:name=".Profile.MyProfile" />
+        <activity android:name=".Profile.Seller_Profiles" />
+        <activity android:name=".Utility.PushNotification" />
+        <activity android:name=".Chat.GlobalChat" />
+        <activity android:name=".Chat.UserDetailsActivitySalespersons" />
+        <activity android:name=".Chat.VizAViz" />
+        <activity android:name=".Chat.ChooseUser" />
+        <activity android:name=".Chat.UserDetailsActivityManagers" />
+        <activity android:name=".Inventories.SearchBarActivity" />
+        <activity android:name=".NotificationActivity" />
+        <activity android:name=".Utility.LeaderboardActivity" />
+        <activity android:name=".Utility.MyGraph"></activity>
+    </application>
+
+</manifest>
