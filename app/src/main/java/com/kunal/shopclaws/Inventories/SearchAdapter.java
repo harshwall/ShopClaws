@@ -19,11 +19,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     ArrayList<String> Item_NameList;
     ArrayList<String> Item_PriceList;
     ArrayList<String> Post_ImageList;
+    ArrayList<String> Stock_size;
 
     class SearchViewHolder extends RecyclerView.ViewHolder {
         View mView;
         SimpleDraweeView post_image;
-        TextView item_name,item_price;
+        TextView item_name,item_price,stock_size;
 
         public SearchViewHolder(View itemView) {
             super(itemView);
@@ -34,15 +35,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             post_image=mView.findViewById(R.id.image1);
             item_name=mView.findViewById(R.id.item_name);
             item_price=mView.findViewById(R.id.item_price);
+            stock_size = mView.findViewById(R.id.sold_status);
 
         }
     }
 
-    public SearchAdapter(Context context, ArrayList<String> Item_NameList, ArrayList<String> Item_PriceList, ArrayList<String> Post_ImageList) {
+    public SearchAdapter(Context context, ArrayList<String> Item_NameList, ArrayList<String> Item_PriceList, ArrayList<String> Post_ImageList,ArrayList<String> Stock_size) {
         this.context = context;
         this.Item_NameList = Item_NameList;
         this.Item_PriceList = Item_PriceList;
         this.Post_ImageList = Post_ImageList;
+        this.Stock_size = Stock_size;
     }
 
     @Override
@@ -53,9 +56,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     @Override
     public void onBindViewHolder(SearchViewHolder holder, int position) {
-        holder.item_name.setText(Item_NameList.get(position));
-        holder.item_price.setText(Item_PriceList.get(position));
+        holder.item_name.setText("Item Name: "+Item_NameList.get(position));
+        holder.item_price.setText("Item Price: \u20B9"+Item_PriceList.get(position));
         holder.post_image.setImageURI(Post_ImageList.get(position));
+        holder.stock_size.setText("Stock Size: "+Stock_size.get(position));
         holder.item_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

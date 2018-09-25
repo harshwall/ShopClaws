@@ -7,6 +7,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,8 +30,9 @@ public class SearchBarActivity extends AppCompatActivity {
     ArrayList<String> Item_NameList;
     ArrayList<String> Item_PriceList;
     ArrayList<String> Post_ImageList;
+    ArrayList<String> Stock_Size;
     SearchAdapter searchAdapter;
-    int a = ImageListFragmentAdmin.category;
+    int a;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,23 +42,24 @@ public class SearchBarActivity extends AppCompatActivity {
 
         search_edit_text = (EditText) findViewById(R.id.search_edit_text);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewSearch);
-
-
-        //firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (a == 1) {
+        SellerInventory sell = new SellerInventory();
+        //Getting current item from viewpager.
+        a = sell.CalcPostion();
+        //Toast.makeText(this, Integer.toString(a), Toast.LENGTH_SHORT).show();
+        if (a == 0) {
             databaseReference = FirebaseDatabase.getInstance().getReference().child("admin").child("Fashion");
         }else
+        if(a==1)
+            databaseReference = FirebaseDatabase.getInstance().getReference().child("admin").child("Books");
+        else
         if(a==2)
-            databaseReference = FirebaseDatabase.getInstance().getReference().child("admin").child("Fashion");
+            databaseReference = FirebaseDatabase.getInstance().getReference().child("admin").child("Electronics");
         else
         if(a==3)
-            databaseReference = FirebaseDatabase.getInstance().getReference().child("admin").child("Fashion");
+            databaseReference = FirebaseDatabase.getInstance().getReference().child("admin").child("Furniture");
         else
         if(a==4)
-            databaseReference = FirebaseDatabase.getInstance().getReference().child("admin").child("Fashion");
-        else
-        if(a==5)
-            databaseReference = FirebaseDatabase.getInstance().getReference().child("admin").child("Fashion");
+            databaseReference = FirebaseDatabase.getInstance().getReference().child("admin").child("Others");
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2 , StaggeredGridLayoutManager.VERTICAL));
@@ -68,6 +71,7 @@ public class SearchBarActivity extends AppCompatActivity {
         Item_NameList = new ArrayList<>();
         Item_PriceList = new ArrayList<>();
         Post_ImageList = new ArrayList<>();
+        Stock_Size = new ArrayList<>();
 
         search_edit_text.addTextChangedListener(new TextWatcher() {
             @Override
@@ -76,6 +80,17 @@ public class SearchBarActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().isEmpty()) {
+                    setAdapter(s.toString());
+                } else {
+                    /*
+                     * Clear the list when editText is empty
+                     * */
+                    Item_NameList.clear();
+                    Item_PriceList.clear();
+                    Post_ImageList.clear();
+                    recyclerView.removeAllViews();
+                }
             }
 
             @Override
@@ -123,16 +138,19 @@ public class SearchBarActivity extends AppCompatActivity {
                             String item_name = snapshot.child("title").getValue(String.class);
                             String item_price = snapshot.child("price").getValue(String.class);
                             String profile_pic = snapshot.child("url").getValue(String.class);
+                            String stock = snapshot.child("stock_size").getValue(String.class);
 
                             if (item_name.toLowerCase().contains(searchedString.toLowerCase())) {
                                 Item_NameList.add(item_name);
                                 Item_PriceList.add(item_price);
                                 Post_ImageList.add(profile_pic);
+                                Stock_Size.add(stock);
                                 counter++;
                             } else if (item_name.toLowerCase().contains(searchedString.toLowerCase())) {
                                 Item_NameList.add(item_name);
                                 Item_PriceList.add(item_price);
                                 Post_ImageList.add(profile_pic);
+                                Stock_Size.add(stock);
                                 counter++;
                             }
 
@@ -143,7 +161,7 @@ public class SearchBarActivity extends AppCompatActivity {
                                 break;
                         }
 
-                        searchAdapter = new SearchAdapter(SearchBarActivity.this, Item_NameList, Item_PriceList, Post_ImageList);
+                        searchAdapter = new SearchAdapter(SearchBarActivity.this, Item_NameList, Item_PriceList, Post_ImageList,Stock_Size);
                         recyclerView.setAdapter(searchAdapter);
                     }
 

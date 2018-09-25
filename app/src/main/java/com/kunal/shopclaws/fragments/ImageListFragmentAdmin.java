@@ -18,6 +18,8 @@ package com.kunal.shopclaws.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -87,7 +89,7 @@ public class ImageListFragmentAdmin extends Fragment {
                 final String desc=model.getDesc();
                 viewHolder.post_image.setImageURI(url);
                 viewHolder.item_name.setText("Item Name: "+title);
-                viewHolder.item_price.setText("Item Price: "+price);
+                viewHolder.item_price.setText("Item Price: \u20B9"+price);
                 final int stock = Integer.parseInt(model.getStock_size());
                 viewHolder.stock_size.setText("Stock Size: "+stock);
                 if(stock<=5)

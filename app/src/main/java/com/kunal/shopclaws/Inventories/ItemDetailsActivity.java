@@ -63,7 +63,7 @@ long revenue;
         //Toast.makeText(this, key, Toast.LENGTH_SHORT).show();
         image.setImageURI(Uri.parse(url));
         etitem_name.append(": "+item_name);
-        etitem_price.append(": "+Integer.toString(item_price));
+        etitem_price.append(": \u20B9"+Integer.toString(item_price));
         etitem_desc.setText(item_desc);
         //checking item is sold or not on the first istance
         if(stock!=0)

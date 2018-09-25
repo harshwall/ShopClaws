@@ -2,6 +2,7 @@ package com.kunal.shopclaws.Utility;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -21,6 +22,7 @@ import com.kunal.shopclaws.Inventories.SellerInventory;
 import com.kunal.shopclaws.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MyGraph extends AppCompatActivity {
 
@@ -41,8 +43,19 @@ public class MyGraph extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot userDetails : dataSnapshot.getChildren()) {
-                    branch.add(userDetails.getKey().toString());
-                    stats.add(userDetails.child("sales").getValue().toString());
+                    Calendar c = Calendar.getInstance();
+                    int month = c.get(Calendar.MONTH);
+                    //Toast.makeText(MyGraph.this, Integer.toString(month), Toast.LENGTH_SHORT).show();
+                    if(userDetails.getKey()!=null) {
+                        String key = userDetails.getKey().toString();
+                        String[] arr = key.split("-");
+                        //Toast.makeText(MyGraph.this, arr[2], Toast.LENGTH_SHORT).show();
+                        if (Integer.parseInt(arr[1]) == month + 1) {
+                            branch.add(userDetails.getKey().toString());
+                            stats.add(userDetails.child("sales").getValue().toString());
+                        } else
+                            userDetails.getRef().removeValue();
+                    }
                 }
                 solve2();
                 mDatabase.removeEventListener(vel);
@@ -80,8 +93,7 @@ public class MyGraph extends AppCompatActivity {
         }
 
         LineData data = new LineData(labels, dataset);
-        dataset.setColors(ColorTemplate.COLORFUL_COLORS); //
-        dataset.setDrawCubic(true);
+        dataset.setColors(ColorTemplate.COLORFUL_COLORS);
         dataset.setDrawFilled(true);
 
         lineChart.setData(data);

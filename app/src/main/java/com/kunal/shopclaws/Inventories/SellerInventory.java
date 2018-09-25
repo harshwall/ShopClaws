@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -56,6 +57,7 @@ public class SellerInventory extends AppCompatActivity implements NavigationView
     protected Object verify;
     TextView tv_hd1;
     TextView tv_hd2;
+    int current,last = 5;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -346,6 +348,21 @@ public class SellerInventory extends AppCompatActivity implements NavigationView
         public CharSequence getPageTitle(int position) {
             return mFragmentTitles.get(position);
         }
+    }
+
+    public int CalcPostion() {
+        current = viewPager.getCurrentItem();
+
+        if ((last == current) && (current != 1) && (current != 0)) {
+            current = current + 1;
+            viewPager.setCurrentItem(current);
+        }
+        if ((last == 1) && (current == 1)) {
+            last = 0;
+            current = 0;
+        }
+        last = current;
+        return current;
     }
 }
 
