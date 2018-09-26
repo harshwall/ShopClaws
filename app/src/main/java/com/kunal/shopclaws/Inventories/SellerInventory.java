@@ -1,6 +1,5 @@
 package com.kunal.shopclaws.Inventories;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,15 +25,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.kunal.shopclaws.LoginRegister.MainActivity;
-import com.kunal.shopclaws.NotificationActivity;
+import com.kunal.shopclaws.Utility.NotificationActivity;
 import com.kunal.shopclaws.Utility.GraphRevenue;
 import com.kunal.shopclaws.Chat.ChooseUser;
 import com.kunal.shopclaws.Chat.GlobalChat;
@@ -43,9 +41,11 @@ import com.kunal.shopclaws.Profile.MyProfile;
 import com.kunal.shopclaws.R;
 import com.kunal.shopclaws.LoginRegister.StartActivity;
 import com.kunal.shopclaws.Utility.MyGraph;
+import com.kunal.shopclaws.cache.ImagePipelineConfigFactory;
 import com.kunal.shopclaws.fragments.ImageListFragmentAdmin;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class SellerInventory extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,SearchView.OnQueryTextListener {
@@ -66,15 +66,61 @@ public class SellerInventory extends AppCompatActivity implements NavigationView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seller__inventory);
+        Fresco.initialize(SellerInventory.this, ImagePipelineConfigFactory.getImagePipelineConfig(SellerInventory.this));
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         context=SellerInventory.this;
         SharedPreferences sharedPreferences = getSharedPreferences("logDetails",
                 Context.MODE_PRIVATE);
         user_id = sharedPreferences.getString("Phone",null);
+        android.text.format.DateFormat df = new android.text.format.DateFormat();
+        String date2 = df.format("yyyy-MM-dd", new Date()).toString();
+        if(FirebaseDatabase.getInstance().getReference().child(user_id).child("SalesData").child(date2).child("sales")==null)
+        FirebaseDatabase.getInstance().getReference().child(user_id).child("SalesData").child(date2).child("sales").setValue(0);
         //Checking Internet Connection!
-       isNetworkConnected();
+        DatabaseReference connectedRef = FirebaseDatabase.getInstance().getReference(".info/connected");
+        connectedRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                boolean connected = snapshot.getValue(Boolean.class);
+                if (connected) {
+                    System.out.println("connected");
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SellerInventory.this);
+                    builder.setMessage("Please check your internet connection!");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                            isNetworkConnected();
+                        }
+                    });
 
+                    builder.setNegativeButton("EXIT", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                            finish();
+                        }
+                    });
+
+                    builder.setNeutralButton("SETTINGS", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(Settings.ACTION_SETTINGS));
+                        }
+                    });
+                    CustomDialog = builder.create();
+                    CustomDialog.show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                System.err.println("Listener was cancelled");
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -116,39 +162,51 @@ public class SellerInventory extends AppCompatActivity implements NavigationView
         });
 
     }
-    private void isNetworkConnected() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+    public void isNetworkConnected()
+    {
+        DatabaseReference connectedRef = FirebaseDatabase.getInstance().getReference(".info/connected");
+        connectedRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                boolean connected = snapshot.getValue(Boolean.class);
+                if (connected) {
+                    System.out.println("connected");
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SellerInventory.this);
+                    builder.setMessage("Please check your internet connection!");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                            isNetworkConnected();
+                        }
+                    });
 
-        if(cm.getActiveNetworkInfo() == null)
-        {
-            AlertDialog.Builder builder = new AlertDialog.Builder(SellerInventory.this);
-            builder.setMessage("Please check your internet connection!");
-            builder.setCancelable(false);
-            builder.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.cancel();
-                    isNetworkConnected();
-                }
-            });
+                    builder.setNegativeButton("EXIT", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                            finish();
+                        }
+                    });
 
-            builder.setNegativeButton("EXIT", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                    finish();
+                    builder.setNeutralButton("SETTINGS", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(Settings.ACTION_SETTINGS));
+                        }
+                    });
+                    CustomDialog = builder.create();
+                    CustomDialog.show();
                 }
-            });
+            }
 
-            builder.setNeutralButton("SETTINGS", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    startActivity(new Intent(Settings.ACTION_SETTINGS));
-                }
-            });
-            CustomDialog = builder.create();
-            CustomDialog.show();
-        }
+            @Override
+            public void onCancelled(DatabaseError error) {
+                System.err.println("Listener was cancelled");
+            }
+        });
     }
     @Override
     protected void onResume() {
@@ -273,10 +331,6 @@ public class SellerInventory extends AppCompatActivity implements NavigationView
             viewPager.setCurrentItem(3);
         } else if (id == R.id.nav_item5) {
             viewPager.setCurrentItem(4);
-        }else if (id == R.id.my_wishlist) {
-            startActivity(new Intent(SellerInventory.this, NotificationActivity.class));
-        }else if (id == R.id.my_cart) {
-            startActivity(new Intent(SellerInventory.this, NotificationActivity.class));
         }
         else
             if(id==R.id.graph)

@@ -1,4 +1,4 @@
-package com.kunal.shopclaws;
+package com.kunal.shopclaws.Utility;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.kunal.shopclaws.R;
 
 public class NotificationActivity extends AppCompatActivity {
     ListView listView;

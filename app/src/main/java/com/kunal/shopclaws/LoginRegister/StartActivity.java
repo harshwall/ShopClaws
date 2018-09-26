@@ -1,8 +1,13 @@
 package com.kunal.shopclaws.LoginRegister;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +30,7 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+        call_at_runtime2();
         Admin=findViewById(R.id.button2);
         Seller=findViewById(R.id.button3);
         Admin.setOnClickListener(new View.OnClickListener() {
@@ -85,5 +91,33 @@ public class StartActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+    }
+
+
+    private void call_at_runtime2() {
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},2);
+        }
+        else
+        {
+        }
+
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode==2)
+        {
+            if(grantResults[0]==PackageManager.PERMISSION_GRANTED)
+            {
+                //Toast.makeText(this, "permission granted", Toast.LENGTH_SHORT).show();
+                call_at_runtime2();
+            }
+            else
+            {
+                //Toast.makeText(this, "permission not granted", Toast.LENGTH_SHORT).show();
+            }
+        }
+
     }
 }

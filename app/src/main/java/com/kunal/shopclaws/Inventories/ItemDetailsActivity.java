@@ -3,8 +3,10 @@ package com.kunal.shopclaws.Inventories;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -94,7 +96,7 @@ long revenue,dailysale;
                      solditems = Integer.parseInt(dataSnapshot.child("solditems").getValue().toString());
                     if(dataSnapshot.child("revenue").getValue()!=null)
                         revenue = (long) dataSnapshot.child("revenue").getValue();
-                    if(dataSnapshot.child("SalesData").child(date2)!=null)
+                    if(dataSnapshot.child("SalesData").child(date2).child("sales")!=null)
                         dailysale = (long) dataSnapshot.child("SalesData").child(date2).child("sales").getValue();
 
             }
@@ -188,10 +190,109 @@ long revenue,dailysale;
                 }
             }
         });
+
+        //Checking Internet Connection
+        DatabaseReference connectedRef = FirebaseDatabase.getInstance().getReference(".info/connected");
+        connectedRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                boolean connected = snapshot.getValue(Boolean.class);
+                if (connected) {
+                    System.out.println("connected");
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ItemDetailsActivity.this);
+                    builder.setMessage("Please check your internet connection!");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                            isNetworkConnected();
+                        }
+                    });
+
+                    builder.setNegativeButton("EXIT", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                            finish();
+                        }
+                    });
+
+                    builder.setNeutralButton("SETTINGS", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(Settings.ACTION_SETTINGS));
+                        }
+                    });
+                    CustomDialog = builder.create();
+                    CustomDialog.show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                System.err.println("Listener was cancelled");
+            }
+        });
+
+    }
+
+    public void isNetworkConnected()
+    {
+        DatabaseReference connectedRef = FirebaseDatabase.getInstance().getReference(".info/connected");
+        connectedRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                boolean connected = snapshot.getValue(Boolean.class);
+                if (connected) {
+                    System.out.println("connected");
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ItemDetailsActivity.this);
+                    builder.setMessage("Please check your internet connection!");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                            isNetworkConnected();
+                        }
+                    });
+
+                    builder.setNegativeButton("EXIT", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                            finish();
+                        }
+                    });
+
+                    builder.setNeutralButton("SETTINGS", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(Settings.ACTION_SETTINGS));
+                        }
+                    });
+                    CustomDialog = builder.create();
+                    CustomDialog.show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                System.err.println("Listener was cancelled");
+            }
+        });
     }
 
     @Override
     public void onBackPressed() {
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isNetworkConnected();
     }
 }

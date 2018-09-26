@@ -5,7 +5,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_HISTORY_BOOKMARKS"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -46,9 +49,9 @@
         <activity android:name=".Chat.ChooseUser" />
         <activity android:name=".Chat.UserDetailsActivityManagers" />
         <activity android:name=".Inventories.SearchBarActivity" />
-        <activity android:name=".NotificationActivity" />
+        <activity android:name=".Utility.NotificationActivity" />
         <activity android:name=".Utility.LeaderboardActivity" />
-        <activity android:name=".MLPrediction"></activity>
+        <activity android:name=".Utility.MLPrediction"></activity>
         <activity android:name=".Utility.MyGraph"></activity>
     </application>
 

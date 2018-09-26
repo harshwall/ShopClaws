@@ -38,25 +38,21 @@
         </menu>
     </item>
 
+    <item android:title="Graph">
+        <menu>
+        <item
+            android:id="@+id/graph"
+            android:icon="@drawable/ic_graphic_eq_black_24dp"
+            android:title="Sales Graph"/>
+        <item
+            android:id="@+id/graph2"
+            android:icon="@drawable/ic_graphic_eq_black_24dp"
+            android:title="My Sales Graph"/>
+        </menu>
+    </item>
+
     <item android:title="@string/my_profile">
         <menu>
-            <item
-                android:id="@+id/my_cart"
-                android:icon="@drawable/ic_shopping_cart_black_24dp"
-                android:title="@string/my_cart" />
-            <item
-                android:id="@+id/my_wishlist"
-                android:icon="@drawable/ic_favorite_black_24dp"
-                android:title="@string/my_wishlist" />
-            <item
-                android:id="@+id/graph"
-                android:icon="@drawable/ic_graphic_eq_black_24dp"
-                android:title="Graph"/>
-            <item
-                android:id="@+id/graph2"
-                android:icon="@drawable/ic_graphic_eq_black_24dp"
-                android:title="My Graph"/>
-
             <item
                 android:id="@+id/my_account"
                 android:icon="@drawable/ic_person_black_24dp"
@@ -66,7 +62,6 @@
                 android:icon="@drawable/ic_person_black_24dp"
                 android:title="Log Out"
                 />
-
         </menu>
     </item>
 
