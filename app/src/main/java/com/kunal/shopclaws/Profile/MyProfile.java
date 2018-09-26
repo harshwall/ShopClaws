@@ -108,42 +108,44 @@ public class MyProfile extends AppCompatActivity {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() != null)
             imgUri = data.getData();
 
-        try {
-            //resizing image to fit on that particular imageview
-            Bitmap bm = MediaStore.Images.Media.getBitmap(getContentResolver(), imgUri);
-            img.setImageBitmap(bm);
-            final StorageReference ref=mStorageRef.child(FB_STORAGE_PATH+System.currentTimeMillis()+"."+ getImageExt(imgUri));
-            ref.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+        if(imgUri!=null) {
+            try {
+                //resizing image to fit on that particular imageview
+                Bitmap bm = MediaStore.Images.Media.getBitmap(getContentResolver(), imgUri);
+                img.setImageBitmap(bm);
+                final StorageReference ref = mStorageRef.child(FB_STORAGE_PATH + System.currentTimeMillis() + "." + getImageExt(imgUri));
+                ref.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                    Toast.makeText(getApplicationContext(),"image uploaded",Toast.LENGTH_LONG).show();
-                    ref.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            String downloadurl=task.getResult().toString();
-                            FirebaseDatabase.getInstance().getReference().child("users").child(userphone).child("img").setValue(downloadurl);
-                            Toast.makeText(MyProfile.this, "Profile Picture Updated!", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress=(100 * taskSnapshot.getBytesTransferred())/taskSnapshot.getTotalByteCount();
-                        }
-                    });
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), "image uploaded", Toast.LENGTH_LONG).show();
+                        ref.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+                                String downloadurl = task.getResult().toString();
+                                FirebaseDatabase.getInstance().getReference().child("users").child(userphone).child("img").setValue(downloadurl);
+                                Toast.makeText(MyProfile.this, "Profile Picture Updated!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                                double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                            }
+                        });
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
     }

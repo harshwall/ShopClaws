@@ -36,7 +36,8 @@ private TextView etitem_name,etitem_price,etitem_desc,etsold,etremove;
 private DatabaseReference mDatabase;
 private AlertDialog CustomDialog;
 private int solditems,item_price;
-long revenue;
+String date2;
+long revenue,dailysale;
     private Boolean flag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,8 @@ long revenue;
         category=getIntent().getIntExtra("category",0);
         stock=getIntent().getIntExtra("stock",10);
         url=getIntent().getStringExtra("url");
+        android.text.format.DateFormat df = new android.text.format.DateFormat();
+        date2 = df.format("yyyy-MM-dd", new Date()).toString();
         image=findViewById(R.id.image_url);
         etitem_desc=findViewById(R.id.descript);
         etitem_name=findViewById(R.id.item_name);
@@ -91,6 +94,9 @@ long revenue;
                      solditems = Integer.parseInt(dataSnapshot.child("solditems").getValue().toString());
                     if(dataSnapshot.child("revenue").getValue()!=null)
                         revenue = (long) dataSnapshot.child("revenue").getValue();
+                    if(dataSnapshot.child("SalesData").child(date2)!=null)
+                        dailysale = (long) dataSnapshot.child("SalesData").child(date2).child("sales").getValue();
+
             }
 
             @Override
@@ -152,12 +158,10 @@ long revenue;
                                     mDatabase.child("stock_size").setValue(Integer.toString(stock));
                                     FirebaseDatabase.getInstance().getReference().child("users").
                                             child(SellerInventory.user_id).child("solditems").setValue(Integer.toString(solditems+1));
-                                    android.text.format.DateFormat df = new android.text.format.DateFormat();
-                                    String date2 = df.format("yyyy-MM-dd", new Date()).toString();
                                     FirebaseDatabase.getInstance().getReference().child("users").
                                             child(SellerInventory.user_id).child("revenue").setValue(item_price+revenue);
                                     FirebaseDatabase.getInstance().getReference().child("users").child(SellerInventory.user_id).
-                                            child("SalesData").child(date2).child("sales").setValue(item_price+revenue);
+                                            child("SalesData").child(date2).child("sales").setValue(item_price+dailysale);
                                     if(stock==0)
                                         mDatabase.removeValue();
 

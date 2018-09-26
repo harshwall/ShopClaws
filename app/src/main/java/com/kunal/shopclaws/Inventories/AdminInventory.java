@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -25,8 +27,10 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.kunal.shopclaws.LoginRegister.MainActivity;
 import com.kunal.shopclaws.NotificationActivity;
 import com.kunal.shopclaws.Chat.ChooseUser;
 import com.kunal.shopclaws.Chat.GlobalChat;
@@ -71,6 +75,10 @@ public class AdminInventory extends AppCompatActivity implements NavigationView.
                 Context.MODE_PRIVATE);
         user_id = sharedPreferences.getString("Phone",null);
 
+        //Checking internet connection!
+        isNetworkConnected();
+
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -104,9 +112,45 @@ public class AdminInventory extends AppCompatActivity implements NavigationView.
 
     }
 
+    private void isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if(cm.getActiveNetworkInfo() == null)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(AdminInventory.this);
+            builder.setMessage("Please check your internet connection!");
+            builder.setCancelable(false);
+            builder.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                    isNetworkConnected();
+                }
+            });
+
+            builder.setNegativeButton("EXIT", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                    finish();
+                }
+            });
+
+            builder.setNeutralButton("SETTINGS", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    startActivity(new Intent(Settings.ACTION_SETTINGS));
+                }
+            });
+            CustomDialog = builder.create();
+            CustomDialog.show();
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
+        isNetworkConnected();
         invalidateOptionsMenu();
     }
 

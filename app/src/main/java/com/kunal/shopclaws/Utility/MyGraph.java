@@ -57,6 +57,7 @@ public class MyGraph extends AppCompatActivity {
                             userDetails.getRef().removeValue();
                     }
                 }
+                if(branch!=null)
                 solve2();
                 mDatabase.removeEventListener(vel);
             }

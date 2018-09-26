@@ -166,7 +166,7 @@ public class UploadImage extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() != null)
+        if (data != null && data.getData() != null && requestCode == REQUEST_CODE && resultCode == RESULT_OK)
             imgUri = data.getData();
 
         try {
