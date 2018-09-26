@@ -46,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
                 user=et_username.getText().toString();
                 pass=et_password.getText().toString();
                 database=et_database.getText().toString();
-                //Validating credentials
+                //Validating credentials for registration
                 if (user.equals("")) {
                     et_username.setError("can't be blank");
                 } else if (pass.equals("")) {
