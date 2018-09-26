@@ -13,6 +13,30 @@ it that the firm will have on the sale of the commodity. This is extensively bas
 Clone this Repository.Go to Android studio.Make sure you are connected to internet.Open an existing project in android studio.Build and
 download required libraries(automatically done by gradle) and run the app.
 
+## Basic Feature
+1. Login and Registration feature for admin and the salespersons with
+  simultaneous data storage on the server.
+2. App displays all the commodities present in the inventory currently.
+  It also has a search capability on all the items that are present in
+  the inventory as well as the sold items.
+3. Displays basic details of the salespersons e.g. employee name, employee
+  id, profile picture, commodities sold etc.
+4. Admin is able to view the profile of all candidates and a
+  salesperson should be able to see only his profile.
+5. There is leaderboard of top 10 salespersons.
+
+## Advance Feature
+
+1. There  is a chat for personal communication between all the
+  employees and a chat for among all the
+  employees in the sales team (including the admin).
+2. Admin is able to send notices through the app to all salespersons,
+  which is visible in form of notifications in app.
+3. Based on the salesperson’s monthly sales, there is a recommendation
+  algorithm that sets a sales target for the next month for the salesperson.
+4. Graphs are there to show a salesperson’s progress over time.
+
+
 ### Prerequisites
 
 Android studio 3.0 or above and a Network connection
