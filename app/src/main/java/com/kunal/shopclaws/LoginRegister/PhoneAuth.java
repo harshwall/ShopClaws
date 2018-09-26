@@ -37,6 +37,8 @@ public class PhoneAuth extends AppCompatActivity {
     private Button submit,Resend;
     private int check=0;
     DatabaseReference mref,mref1;
+    PhoneAuthProvider.ForceResendingToken mResendToken;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,22 @@ public class PhoneAuth extends AppCompatActivity {
                 }
                 else
                     Toast.makeText(PhoneAuth.this, "Validate correct Otp", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Resend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mResendToken!=null) {
+                    PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                            phone_number,        // Phone number to verify
+                            60,               // Timeout duration
+                            TimeUnit.MINUTES,   // Unit of timeout
+                            PhoneAuth.this,               // Activity (for callback binding)
+                            mCallbacks,         // OnVerificationStateChangedCallbacks
+                            mResendToken);      // Force Resending Token from callbacks
+                }
+
             }
         });
 
@@ -127,6 +145,8 @@ public class PhoneAuth extends AppCompatActivity {
             check=1;
             //storing the verification id that is sent to the user
             mVerificationId = s;
+            mResendToken=forceResendingToken;
+
         }
     };
     private void verifyVerificationCode(String code) {
@@ -172,5 +192,6 @@ public class PhoneAuth extends AppCompatActivity {
                     }
                 });
     }
+
 }
 

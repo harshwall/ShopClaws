@@ -1,8 +1,13 @@
 package com.kunal.shopclaws.LoginRegister;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference mref;
     Boolean flag;
     private ProgressDialog pd;
+    AlertDialog CustomDialog;
 
 
     @Override
@@ -48,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
         loginButton = (Button) findViewById(R.id.loginButton);
         pd = new ProgressDialog(MainActivity.this);
         flag=getIntent().getBooleanExtra("Flag",false);
-
+        //Check network connection!
+        isNetworkConnected();
 
 
         tv_registerUser.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +83,46 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isNetworkConnected();
+    }
 
+    private void isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if(cm.getActiveNetworkInfo() == null)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setMessage("Please check your internet connection!");
+            builder.setCancelable(false);
+            builder.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                    isNetworkConnected();
+                }
+            });
+
+            builder.setNegativeButton("EXIT", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                    finish();
+                }
+            });
+
+            builder.setNeutralButton("SETTINGS", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    startActivity(new Intent(Settings.ACTION_SETTINGS));
+                }
+            });
+            CustomDialog = builder.create();
+            CustomDialog.show();
+        }
+    }
     private void signIn() {
         pd.setMessage("Signing In...");
         pd.show();

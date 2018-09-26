@@ -48,6 +48,7 @@
         <activity android:name=".Inventories.SearchBarActivity" />
         <activity android:name=".NotificationActivity" />
         <activity android:name=".Utility.LeaderboardActivity" />
+        <activity android:name=".MLPrediction"></activity>
         <activity android:name=".Utility.MyGraph"></activity>
     </application>
 
