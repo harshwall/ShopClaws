@@ -37,6 +37,14 @@ download required libraries(automatically done by gradle) and run the app.
 4. Graphs are there to show a salesperson’s progress over time.
 
 
+## Libraries used
+
+1. Firebase auth,database,storage,UI,cloud messaging,ML kit.
+2. Alimuzaffar pin entry edit text
+3. MpAndroidChart Library
+4. Fresco
+
+
 ### Prerequisites
 
 Android studio 3.0 or above and a Network connection
@@ -47,6 +55,12 @@ Android studio 3.0 or above and a Network connection
 * [Android Studio](https://developer.android.com/studio/) - Java platform with magical gradle
 * [Firebase](https://firebase.google.com/) - Firebase is Google's mobile platform that helps you quickly develop high-quality apps and grow your business.
 * [Node js](https://nodejs.org/) - Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine
+
+## Contribute
+* Feel free to report issues and bugs for improving the user experience
+* Fork and contribute
+
+
 
 
 
