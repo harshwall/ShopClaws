@@ -61,8 +61,6 @@ Android studio 3.0 or above and a Network connection
 * Fork and contribute
 
 
-![alt text](https://github.com/svjkaas/ShopClaws/logo.png)
-
 
 ## Developers
 
