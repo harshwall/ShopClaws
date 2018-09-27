@@ -29,16 +29,15 @@ import com.kunal.shopclaws.Inventories.SellerInventory;
 import com.kunal.shopclaws.R;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int RC_SIGN_IN = 0;
-    TextView tv_registerUser;
-    EditText et_username, et_password, et_database;
-    Button loginButton;
-    String user, pass, database,decrypt;
+    private TextView tv_registerUser;
+    private EditText  et_password, et_database;
+    private Button loginButton;
+    private String  pass, database,decrypt;
     static FirebaseAuth auth;
-    DatabaseReference mref;
-    Boolean flag;
+    private DatabaseReference mref;
+    private Boolean flag;
     private ProgressDialog pd;
-    AlertDialog CustomDialog;
+    private AlertDialog CustomDialog;
 
 
     @Override
@@ -89,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         isNetworkConnected();
     }
 
+    //Checking Network connection method
     private void isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -132,8 +132,6 @@ public class MainActivity extends AppCompatActivity {
         mref1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //if(dataSnapshot.getChildren().iterator().equals(database)){
-
                     if(flag)
                         mref=FirebaseDatabase.getInstance().getReference().child("admin").child(database);
                     else
@@ -148,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                                 Object passkey = dataSnapshot.child("password").getValue();
+                                //User enters wrong username
                                 if(passkey==null)
                                 {
                                     pd.dismiss();
@@ -161,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                                 if(pass.equals(decrypt)){
+                                    //entering the values in shared preferences
                                     SharedPreferences sp =
                                             getSharedPreferences("logDetails", MODE_PRIVATE);
                                     SharedPreferences.Editor editor = sp.edit();
@@ -192,14 +192,6 @@ public class MainActivity extends AppCompatActivity {
                         });
 
                     }
-
-            //}
-               // else{
-                  //  Toast.makeText(MainActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
-                //}
-
-
-
         }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

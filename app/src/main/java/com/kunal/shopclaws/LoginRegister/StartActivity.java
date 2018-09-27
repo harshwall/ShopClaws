@@ -29,6 +29,7 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+        //asking runtime permission from the user for writing external storage to cache the files.
         call_at_runtime2();
         Admin=findViewById(R.id.button2);
         Seller=findViewById(R.id.button3);
@@ -92,6 +93,7 @@ public class StartActivity extends AppCompatActivity {
         }
     }
 
+    //Runtime Permission
     public void call_at_runtime2()
     {
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)
