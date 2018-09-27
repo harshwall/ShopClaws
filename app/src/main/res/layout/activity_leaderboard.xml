@@ -21,6 +21,7 @@
             android:textAllCaps="true"
             android:textStyle="bold"
             android:gravity="center"
+            android:textColor="@color/white"
 
             />
 
@@ -30,22 +31,20 @@
             android:layout_marginTop="40dp"
             android:orientation="horizontal"
             >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="32dp"
-                android:id="@+id/tv_rank"
-                android:text="1st"
-                android:textSize="26dp"
-
+                android:layout_marginLeft="25dp"
+                app:placeholderImage="@drawable/cup"
+                app:roundAsCircle="true"
                 />
             <com.facebook.drawee.view.SimpleDraweeView
                 android:layout_width="80dp"
                 android:id="@+id/img_rank"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="70dp"
+                android:layout_marginLeft="60dp"
                 app:roundAsCircle="true"
                 app:placeholderImage="@drawable/tom"
 
@@ -57,8 +56,9 @@
                 android:layout_gravity="center"
                 android:id="@+id/tv2_rank"
                 android:text="20000"
+                android:textColor="@color/white"
                 android:textSize="26dp"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="25dp"
 
                 />
 

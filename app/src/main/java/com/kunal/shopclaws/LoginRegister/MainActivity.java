@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mref;
     private Boolean flag;
     private ProgressDialog pd;
+    TextView forget_pass;
     private AlertDialog CustomDialog;
 
 
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Firebase.setAndroidContext(this);
+        //Object of firebase authentication
         auth = FirebaseAuth.getInstance();
         // typecasting of different elements
         tv_registerUser = (TextView) findViewById(R.id.register);
@@ -53,6 +55,14 @@ public class MainActivity extends AppCompatActivity {
         loginButton = (Button) findViewById(R.id.loginButton);
         pd = new ProgressDialog(MainActivity.this);
         flag=getIntent().getBooleanExtra("Flag",false);
+        forget_pass = findViewById(R.id.forgot_pass);
+        forget_pass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this , RequestOtp.class));
+
+            }
+        });
         //Check network connection!
         isNetworkConnected();
 
@@ -63,13 +73,11 @@ public class MainActivity extends AppCompatActivity {
                 if(!flag) {
                     Intent i = new Intent(MainActivity.this, RegisterActivity.class);
                     startActivity(i);
-                    finish();
                 }
                 else
                 {
                     Intent i= new Intent(MainActivity.this,RegisterActivityAdmin.class);
                     startActivity(i);
-                    finish();
                 }
             }
         });
@@ -141,6 +149,8 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Field blank", Toast.LENGTH_SHORT).show();
 
                     } else {
+                        pass=pass.trim();
+                        database=database.trim();
                         mref.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

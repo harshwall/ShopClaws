@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
+import com.goodiebag.pinview.Pinview;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
@@ -32,13 +33,12 @@ import static com.kunal.shopclaws.LoginRegister.MainActivity.auth;
 public class PhoneAuth extends AppCompatActivity {
     private boolean flag;
     String phone_number,email,passwd,encrypt;
-    com.alimuzaffar.lib.pin.PinEntryEditText Otp;
+    Pinview Otp;
     private String mVerificationId;
     private Button submit,Resend;
     private int check=0;
     DatabaseReference mref,mref1;
     PhoneAuthProvider.ForceResendingToken mResendToken;
-    FirebaseAuth firebaseAuth;
 
 
     @Override
@@ -60,14 +60,16 @@ public class PhoneAuth extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                verifyVerificationCode(Otp.getText().toString());
+                verifyVerificationCode(Otp.getValue().toString());
 
                 if (check==1) {
-                    Toast.makeText(PhoneAuth.this, "Hogya Auth", Toast.LENGTH_SHORT).show();
+
                     registerUser(passwd);
                 }
-                else
-                    Toast.makeText(PhoneAuth.this, "Validate correct Otp", Toast.LENGTH_SHORT).show();
+                else{
+
+                }
+
             }
         });
 
@@ -143,7 +145,7 @@ public class PhoneAuth extends AppCompatActivity {
         @Override
         public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
-            check=1;
+           //* check=1;*//*
             //storing the verification id that is sent to the user
             mVerificationId = s;
             mResendToken=forceResendingToken;
@@ -181,18 +183,23 @@ public class PhoneAuth extends AppCompatActivity {
                                 message = "Invalid code entered...";
                             }
 
-                            Snackbar snackbar = Snackbar.make(findViewById(R.id.parent), message, Snackbar.LENGTH_LONG);
+                            final Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
+                            snackbar.show();
                             snackbar.setAction("Dismiss", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-
+                                   snackbar.dismiss();
                                 }
                             });
-                            snackbar.show();
+
                         }
                     }
                 });
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }
 

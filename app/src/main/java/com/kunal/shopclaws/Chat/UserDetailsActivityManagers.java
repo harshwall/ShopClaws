@@ -35,15 +35,15 @@ public class UserDetailsActivityManagers extends AppCompatActivity {
         setContentView(R.layout.activity_user_details_managers);
         RecViewManager = findViewById(R.id.listView2);
         RecViewManager.setHasFixedSize(true);
-        //to click on item with item
-       RecViewManager.setItemAnimator(new DefaultItemAnimator());
+        RecViewManager.setItemAnimator(new DefaultItemAnimator());
         RecViewManager.setLayoutManager(new LinearLayoutManager(this));
         user_id=getIntent().getStringExtra("user_id");
         mref2 = FirebaseDatabase.getInstance().getReference().child("admin");
+        //fetching available managers
         FirebaseRecyclerAdapter<BlogUser,BlogViewHolder> firebaseRecyclerAdapter= new FirebaseRecyclerAdapter<BlogUser, BlogViewHolder>
                 (BlogUser.class, R.layout.chatlist_manager, BlogViewHolder.class, mref2) {
             @Override
-            protected void populateViewHolder(BlogViewHolder viewHolder, BlogUser model, final int position) {
+            protected void populateViewHolder(BlogViewHolder viewHolder, final BlogUser model, final int position) {
                 if(model.getMobile()!=null)
                     if(!model.getMobile().equals(user_id)) {
                         viewHolder.textView.setText(model.getName());
@@ -52,16 +52,20 @@ public class UserDetailsActivityManagers extends AppCompatActivity {
                     }
                     else {
                         UserDetails.username = model.getName() + "(" + model.getMobile() + ")";
-                        viewHolder.mView.setVisibility(View.GONE);
+                        viewHolder.textView.setText(model.getName());
+                        viewHolder.textView1.setText(model.getMobile());
+                        viewHolder.img.setImageResource(R.drawable.manager);
                     }
                     else
                         viewHolder.mView.setVisibility(View.GONE);
                     viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            BlogUser user=getItem(position);
-                            UserDetails.chatWith=user.getName()+"("+user.getMobile()+")";
-                            startActivity(new Intent(UserDetailsActivityManagers.this,VizAViz.class));
+                            if(!model.getMobile().equals(user_id)) {
+                                BlogUser user = getItem(position);
+                                UserDetails.chatWith = user.getName() + "(" + user.getMobile() + ")";
+                                startActivity(new Intent(UserDetailsActivityManagers.this, VizAViz.class));
+                            }
                         }
                     });
             }

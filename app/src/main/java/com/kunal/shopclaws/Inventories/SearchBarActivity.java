@@ -176,9 +176,6 @@ public class SearchBarActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        /*Intent i = new Intent(SearchBarActivity.this , SellerInventory.class);
-        startActivity(i);*/
         finish();
-      //  super.onBackPressed();
     }
 }

@@ -49,9 +49,9 @@ public class AdminInventory extends AppCompatActivity implements NavigationView.
     static TabLayout tabLayout;
     public static Context context;
     public static String user_id;
-    TextView tv_hd1,tv_hd2;
-    String user_name,user_email;
-    AlertDialog CustomDialog;
+    private TextView tv_hd1,tv_hd2;
+    public static String user_name,user_email;
+    private AlertDialog CustomDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

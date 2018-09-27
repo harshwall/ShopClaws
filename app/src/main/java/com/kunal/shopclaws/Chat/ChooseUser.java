@@ -20,6 +20,7 @@ public class ChooseUser extends AppCompatActivity {
         managers=findViewById(R.id.managers);
         user_id = getIntent().getStringExtra("user_id");
 
+        //if user wants to chat with salespersons
         salespersons.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -29,6 +30,7 @@ public class ChooseUser extends AppCompatActivity {
             }
         });
 
+        //if user wants to chat with managers
         managers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
