@@ -32,4 +32,8 @@ public class PushNotification extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

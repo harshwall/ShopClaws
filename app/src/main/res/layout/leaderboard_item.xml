@@ -29,6 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Name:- "
+        android:textStyle="bold"
         android:textSize="18dp"
         android:layout_toRightOf="@+id/profimg1"
         android:layout_marginLeft="50dp"
