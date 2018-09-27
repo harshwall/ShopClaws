@@ -94,7 +94,7 @@ long revenue,dailysale;
                      solditems = Integer.parseInt(dataSnapshot.child("solditems").getValue().toString());
                     if(dataSnapshot.child("revenue").getValue()!=null)
                         revenue = (long) dataSnapshot.child("revenue").getValue();
-                    if(dataSnapshot.child("SalesData").child(date2)!=null)
+                    if(dataSnapshot.child("SalesData").child(date2).hasChild("sales"))
                         dailysale = (long) dataSnapshot.child("SalesData").child(date2).child("sales").getValue();
 
             }

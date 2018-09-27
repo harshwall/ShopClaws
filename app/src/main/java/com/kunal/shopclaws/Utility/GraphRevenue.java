@@ -29,7 +29,7 @@ public class GraphRevenue extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cart);
+        setContentView(R.layout.activity_graph);
 
         mDatabase = FirebaseDatabase.getInstance().getReference("users");
         name = new ArrayList<String>();

@@ -38,6 +38,7 @@ public class PhoneAuth extends AppCompatActivity {
     private int check=0;
     DatabaseReference mref,mref1;
     PhoneAuthProvider.ForceResendingToken mResendToken;
+    FirebaseAuth firebaseAuth;
 
 
     @Override

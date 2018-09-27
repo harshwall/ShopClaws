@@ -1,11 +1,19 @@
 package com.kunal.shopclaws.Chat;
 
 public class BlogUser {
-    String name,mobile;
+    String name,mobile ,img;
 
     public BlogUser()
     {
 
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public String getName() {

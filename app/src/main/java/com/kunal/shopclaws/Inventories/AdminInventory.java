@@ -1,6 +1,5 @@
 package com.kunal.shopclaws.Inventories;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,16 +26,13 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.kunal.shopclaws.LoginRegister.MainActivity;
-import com.kunal.shopclaws.NotificationActivity;
+import com.kunal.shopclaws.Utility.NotificationActivity;
 import com.kunal.shopclaws.Chat.ChooseUser;
 import com.kunal.shopclaws.Chat.GlobalChat;
 import com.kunal.shopclaws.Utility.GraphRevenue;
 import com.kunal.shopclaws.Utility.LeaderboardActivity;
-import com.kunal.shopclaws.Utility.MyGraph;
 import com.kunal.shopclaws.Utility.PushNotification;
 import com.kunal.shopclaws.R;
 import com.kunal.shopclaws.LoginRegister.StartActivity;

@@ -1,6 +1,5 @@
 package com.kunal.shopclaws.Inventories;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,15 +25,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.kunal.shopclaws.LoginRegister.MainActivity;
-import com.kunal.shopclaws.NotificationActivity;
+import com.kunal.shopclaws.Utility.MLPrediction;
+import com.kunal.shopclaws.Utility.NotificationActivity;
 import com.kunal.shopclaws.Utility.GraphRevenue;
 import com.kunal.shopclaws.Chat.ChooseUser;
 import com.kunal.shopclaws.Chat.GlobalChat;
@@ -46,6 +44,7 @@ import com.kunal.shopclaws.Utility.MyGraph;
 import com.kunal.shopclaws.fragments.ImageListFragmentAdmin;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class SellerInventory extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,SearchView.OnQueryTextListener {
@@ -273,12 +272,13 @@ public class SellerInventory extends AppCompatActivity implements NavigationView
             viewPager.setCurrentItem(3);
         } else if (id == R.id.nav_item5) {
             viewPager.setCurrentItem(4);
-        }else if (id == R.id.my_wishlist) {
-            startActivity(new Intent(SellerInventory.this, NotificationActivity.class));
-        }else if (id == R.id.my_cart) {
-            startActivity(new Intent(SellerInventory.this, NotificationActivity.class));
         }
         else
+            if(id==R.id.predictgraph)
+            {
+                startActivity(new Intent(SellerInventory.this, MLPrediction.class));
+            }
+            else
             if(id==R.id.graph)
             {
                 startActivity(new Intent(SellerInventory.this,GraphRevenue.class));

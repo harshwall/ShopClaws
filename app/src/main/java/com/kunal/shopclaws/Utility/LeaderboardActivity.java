@@ -47,10 +47,14 @@ DatabaseReference databaseReference;
                 //Toast.makeText(LeaderboardActivity.this, name, Toast.LENGTH_SHORT).show();
                 final String revenue = model.getRevenue().toString();
                 final Object imguri = model.getImg();
-                viewHolder.lbname.append(name);
-                viewHolder.lbrevenue.append(revenue);
-                if(imguri!=null)
-                viewHolder.img.setImageURI(Uri.parse(imguri.toString()));
+                if(Integer.parseInt(revenue)>0) {
+                    viewHolder.lbname.append(name);
+                    viewHolder.lbrevenue.append(revenue);
+                    if (imguri != null)
+                        viewHolder.img.setImageURI(Uri.parse(imguri.toString()));
+                }
+                else
+                    viewHolder.mView.setVisibility(View.GONE);
             }
             @Override
             public data getItem(int position) {
