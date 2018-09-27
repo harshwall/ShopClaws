@@ -61,18 +61,23 @@ public class RegisterActivityAdmin extends AppCompatActivity {
                     et_database.setError("Enter valid mobile number");
                 }
                 else {
-
+                    user=user.trim();
+                    pass=pass.trim();
+                    database=database.trim();
                     Intent i=new Intent(RegisterActivityAdmin.this,PhoneAuth.class);
                     i.putExtra("phone",database);
                     i.putExtra("email",user);
                     i.putExtra("password",pass);
                     i.putExtra("Flag",true);
                     startActivity(i);
-                    finish();
                 }
             }
         });
 
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

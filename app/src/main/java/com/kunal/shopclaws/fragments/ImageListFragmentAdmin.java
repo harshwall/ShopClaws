@@ -58,14 +58,13 @@ public class ImageListFragmentAdmin extends Fragment {
         Fresco.initialize(getActivity(), ImagePipelineConfigFactory.getImagePipelineConfig(getActivity()));
         super.onCreate(savedInstanceState);
     }
-/*
-    (ImageListFragment.this.getArguments().getInt("type") == 2){
-        items =ImageUrlUtils.getBooksUrls();*/
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
        rv = (RecyclerView) inflater.inflate(R.layout.layout_recylerview_list, container, false);
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         rv.setLayoutManager(layoutManager);
+        //View Pager set on which fragment
         category = ImageListFragmentAdmin.this.getArguments().getInt("type");
         if (category == 1){
             mDatabase= FirebaseDatabase.getInstance().getReference().child("admin").child("Fashion");
@@ -78,6 +77,7 @@ public class ImageListFragmentAdmin extends Fragment {
         }else if (category == 5){
             mDatabase= FirebaseDatabase.getInstance().getReference().child("admin").child("Others");
         }
+        //Fetching items through firebase recycler adapter.
         FirebaseRecyclerAdapter<Blog,BlogViewHolder> firebaseRecyclerAdapter=new FirebaseRecyclerAdapter<Blog, BlogViewHolder>
                 (Blog.class,R.layout.list_item,BlogViewHolder.class,mDatabase) {
             @SuppressLint("ResourceAsColor")
@@ -87,6 +87,7 @@ public class ImageListFragmentAdmin extends Fragment {
                 final String title=model.getTitle();
                 final String price=model.getPrice();
                 final String desc=model.getDesc();
+                //Setting different details like itemName, itemPrice, StockSize and Image on a view in Recycler View.
                 viewHolder.post_image.setImageURI(url);
                 viewHolder.item_name.setText("Item Name: "+title);
                 viewHolder.item_price.setText("Item Price: \u20B9"+price);
@@ -99,6 +100,7 @@ public class ImageListFragmentAdmin extends Fragment {
                     public void onClick(View v) {
                         mref=getRef(position);
                         Intent i= new Intent(getActivity(),ItemDetailsActivity.class);
+                        //Sending item details in item details activity.
                         i.putExtra("url",url);
                         i.putExtra("title",title);
                         i.putExtra("desc",desc);

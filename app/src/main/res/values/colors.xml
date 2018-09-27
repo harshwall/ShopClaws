@@ -27,10 +27,10 @@
     <color name="bg_screen1">#f64c73</color>
 
     <!-- dots inactive colors -->
-    <color name="dot_dark_screen1">#d1395c</color>
+    <color name="dot_dark_screen1">#0b79a2</color>
 
     <!-- dots active colors -->
-    <color name="dot_light_screen1">#f98da5</color>
+    <color name="dot_light_screen1">#FF60CCF4</color>
 
     <!-- Placeholder colors-->
     <color name="stay_color">#999999</color>

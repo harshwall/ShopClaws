@@ -22,7 +22,7 @@ import com.kunal.shopclaws.R;
 import com.kunal.shopclaws.cache.ImagePipelineConfigFactory;
 
 public class UserDetailsActivitySalespersons extends AppCompatActivity {
-    protected RecyclerView RecViewSalesperson;
+    private RecyclerView RecViewSalesperson;
     private DatabaseReference mref1;
     private String user_id;
     @Override
@@ -32,12 +32,12 @@ public class UserDetailsActivitySalespersons extends AppCompatActivity {
         setContentView(R.layout.activity_user_details_salesperson);
         RecViewSalesperson = findViewById(R.id.listView1);
         RecViewSalesperson.setHasFixedSize(true);
-        //to click on item with item
         RecViewSalesperson.setItemAnimator(new DefaultItemAnimator());
         RecViewSalesperson.setLayoutManager(new LinearLayoutManager(this));
         user_id =getIntent().getStringExtra("user_id");
         mref1 = FirebaseDatabase.getInstance().getReference().child("users");
         FirebaseRecyclerAdapter<BlogUser,BlogViewHolder> firebaseRecyclerAdapter = null;
+        //fetching available managers
         firebaseRecyclerAdapter= new FirebaseRecyclerAdapter<BlogUser,BlogViewHolder>
                 (BlogUser.class, R.layout.chatlist_manager,BlogViewHolder.class, mref1) {
             @Override
@@ -69,8 +69,6 @@ public class UserDetailsActivitySalespersons extends AppCompatActivity {
                             i.putExtra("imgchat",model.getImg());
                             startActivity(i);
                         }
-                        else
-                            Toast.makeText(UserDetailsActivitySalespersons.this, "You cannot chat with yourself!", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

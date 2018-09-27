@@ -22,7 +22,7 @@ import com.kunal.shopclaws.R;
 public class LeaderboardActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     DatabaseReference databaseReference;
-    TextView tvrank,tv2rank;
+    TextView tv2rank;
     SimpleDraweeView imgrank;
     String maximg;
     int maxrev=0;
@@ -31,7 +31,6 @@ public class LeaderboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
         databaseReference = FirebaseDatabase.getInstance().getReference().child("users");
-        tvrank=findViewById(R.id.tv_rank);
         tv2rank=findViewById(R.id.tv2_rank);
         imgrank=findViewById(R.id.img_rank);
         recyclerView=findViewById(R.id.recycle);
