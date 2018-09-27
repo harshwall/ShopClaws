@@ -26,18 +26,18 @@ import com.kunal.shopclaws.fragments.ImageListFragmentAdmin;
 
 public class UserDetailsActivityManagers extends AppCompatActivity {
     private DatabaseReference mref2;
-    private RecyclerView ListViewManager;
+    private RecyclerView RecViewManager;
     private String user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_details_managers);
-        ListViewManager = findViewById(R.id.listView2);
-        ListViewManager.setHasFixedSize(true);
+        RecViewManager = findViewById(R.id.listView2);
+        RecViewManager.setHasFixedSize(true);
         //to click on item with item
-       ListViewManager.setItemAnimator(new DefaultItemAnimator());
-        ListViewManager.setLayoutManager(new LinearLayoutManager(this));
+       RecViewManager.setItemAnimator(new DefaultItemAnimator());
+        RecViewManager.setLayoutManager(new LinearLayoutManager(this));
         user_id=getIntent().getStringExtra("user_id");
         mref2 = FirebaseDatabase.getInstance().getReference().child("admin");
         FirebaseRecyclerAdapter<BlogUser,BlogViewHolder> firebaseRecyclerAdapter= new FirebaseRecyclerAdapter<BlogUser, BlogViewHolder>
@@ -66,7 +66,7 @@ public class UserDetailsActivityManagers extends AppCompatActivity {
                     });
             }
         };
-        ListViewManager.setAdapter(firebaseRecyclerAdapter);
+        RecViewManager.setAdapter(firebaseRecyclerAdapter);
 
     }
 

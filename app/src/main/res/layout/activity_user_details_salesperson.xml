@@ -31,12 +31,12 @@
 
     </android.support.v7.widget.Toolbar>
 
-            <ListView
-                app:layout_constraintTop_toBottomOf="@+id/tool_salesp"
-                android:layout_marginTop="5dp"
-                android:id="@+id/listView1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </ListView>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
+        android:id="@+id/listView1">
+    </android.support.v7.widget.RecyclerView>
+
 
 </android.support.constraint.ConstraintLayout>

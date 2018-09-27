@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
+import android.os.AsyncTask;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -44,7 +45,6 @@ import com.kunal.shopclaws.Utility.MyGraph;
 import com.kunal.shopclaws.fragments.ImageListFragmentAdmin;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class SellerInventory extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,SearchView.OnQueryTextListener {
@@ -72,7 +72,7 @@ public class SellerInventory extends AppCompatActivity implements NavigationView
                 Context.MODE_PRIVATE);
         user_id = sharedPreferences.getString("Phone",null);
         //Checking Internet Connection!
-       isNetworkConnected();
+       new Task1().execute();
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -152,7 +152,7 @@ public class SellerInventory extends AppCompatActivity implements NavigationView
     @Override
     protected void onResume() {
         super.onResume();
-        isNetworkConnected();
+        new Task1().doInBackground();
         invalidateOptionsMenu();
     }
 
@@ -402,6 +402,28 @@ public class SellerInventory extends AppCompatActivity implements NavigationView
         }
         last = current;
         return current;
+    }
+
+    class Task1 extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+        }
+        @Override
+        protected Void doInBackground(Void... arg0)
+        {
+            isNetworkConnected();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result)
+        {
+            super.onPostExecute(result);
+
+        }
     }
 }
 

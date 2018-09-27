@@ -1,5 +1,6 @@
 package com.kunal.shopclaws.Chat;
 
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -14,6 +15,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -33,6 +35,8 @@ public class VizAViz extends AppCompatActivity {
     android.support.v7.widget.Toolbar toolbar;
     ImageButton back;
     TextView tv_uname;
+    String imgchat;
+    SimpleDraweeView chatimg;
 
 
     @Override
@@ -45,6 +49,10 @@ public class VizAViz extends AppCompatActivity {
         back = findViewById(R.id.back_btn);
         tv_uname = findViewById(R.id.tv_uname);
         tv_uname.setText(UserDetails.chatWith);
+        chatimg=findViewById(R.id.chat_img);
+        imgchat = getIntent().getStringExtra("imgchat");
+        if(imgchat!=null)
+            chatimg.setImageURI(Uri.parse(imgchat));
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
