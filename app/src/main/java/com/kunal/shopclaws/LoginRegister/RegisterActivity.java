@@ -62,7 +62,9 @@ public class RegisterActivity extends AppCompatActivity {
                     et_database.setError("Enter valid mobile number");
                 }
                 else {
-
+                    user=user.trim();
+                    pass=pass.trim();
+                    database=database.trim();
                     Intent i=new Intent(RegisterActivity.this,PhoneAuth.class);
                     i.putExtra("phone",database);
                     i.putExtra("email",user);
@@ -76,4 +78,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

@@ -43,7 +43,7 @@ public class MyProfile extends AppCompatActivity {
     protected SimpleDraweeView img;
     private Uri imgUri;
     protected StorageReference mStorageRef;
-    protected TextView prof_name,prof_phone,prof_verify;
+    protected TextView prof_name,prof_phone,prof_verify,tvsolditems,tvrevenue;
     protected DatabaseReference mDatabase;
     public static final String FB_STORAGE_PATH = "image/";
     public static final int REQUEST_CODE = 1234;
@@ -60,6 +60,8 @@ public class MyProfile extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance().getReference();
         img=findViewById(R.id.profimg);
         prof_phone=findViewById(R.id.profphone);
+        tvrevenue=findViewById(R.id.revenue);
+        tvsolditems=findViewById(R.id.sold_item);
         prof_verify=findViewById(R.id.verify);
         prof_phone.append(userphone);
         prof_ver_icon = (ImageView)findViewById(R.id.profver_icon);
@@ -72,11 +74,15 @@ public class MyProfile extends AppCompatActivity {
                 String merchant=dataSnapshot.child("name").getValue().toString();
                 Object imgfetch=dataSnapshot.child("img").getValue();
                 String verify = dataSnapshot.child("verify").getValue().toString();
+                String revenue = dataSnapshot.child("revenue").getValue().toString();
+                String solditems = dataSnapshot.child("solditems").getValue().toString();
                 if(imgfetch!=null)
                 {
                     img.setImageURI(Uri.parse(imgfetch.toString()));
                 }
                 prof_name.setText("Username: "+merchant);
+                tvrevenue.setText(revenue);
+                tvsolditems.setText(solditems);
                 if(verify.equals("1"))
                 {
                     prof_verify.setText("Verified");

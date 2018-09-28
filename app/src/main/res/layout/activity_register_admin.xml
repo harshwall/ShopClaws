@@ -48,6 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:id="@+id/phone"
+                android:inputType="number"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/et_bg"
                 android:fontFamily="sans-serif-light"
@@ -71,7 +72,7 @@
                 android:fontFamily="sans-serif-light"
                 android:text="User Name"
                 android:textAllCaps="true"
-                android:inputType="number"
+
                 android:textColor="@color/white"
                 android:textSize="15sp" />
 

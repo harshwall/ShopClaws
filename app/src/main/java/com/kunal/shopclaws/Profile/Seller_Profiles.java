@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -39,7 +40,7 @@ AlertDialog CustomDialog;
         //to take the recycler view in linear form
         /*recyclerView.setLayoutManager(new LinearLayoutManager(this));*/
         //to take the recycler view in grid form
-        recyclerView.setLayoutManager(new GridLayoutManager(this,1));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         //to call the adapter class in recycler view
         FirebaseRecyclerAdapter<BlogProfile,BlogViewHolder> firebaseRecyclerAdapter=new FirebaseRecyclerAdapter<BlogProfile, BlogViewHolder>
                 (BlogProfile.class,R.layout.profile,BlogViewHolder.class,mDatabase) {
@@ -50,10 +51,14 @@ AlertDialog CustomDialog;
                 final String mobile=model.getMobile();
                 final String imguri=model.getImg();
                 final String verify=model.getVerify();
+                final String revenue = model.getRevenue().toString();
+                final String solditems=model.getSolditems();
                 //Toast.makeText(Seller_Profiles.this, name, Toast.LENGTH_SHORT).show();
                 if(name!=null)
                 viewHolder.profname.setText("Username: "+name);
                 viewHolder.profphone.setText("Phone Number: "+mobile);
+                viewHolder.profsolditems.setText(solditems);
+                viewHolder.profrevenue.setText(revenue);
                 if(imguri!=null)
                     viewHolder.img.setImageURI(Uri.parse(imguri));
                 if(verify!=null && verify.equals("1")) {
@@ -87,6 +92,31 @@ AlertDialog CustomDialog;
                             CustomDialog = builder.create();
                             CustomDialog.show();
                         }
+                        else
+                        {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(Seller_Profiles.this);
+                            builder.setMessage("Are you sure you want to unverify this user?");
+                            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    viewHolder.profverify.setTextColor(R.color.green_light);
+                                    viewHolder.profverify.setText("Verify this Salesperson?");
+                                    viewHolder.profvericon.setImageResource(R.drawable.ic_cancel_black_24dp);
+                                    FirebaseDatabase.getInstance().getReference().child("users").child(mobile).child("verify").setValue("0");
+                                    dialogInterface.cancel();
+                                }
+                            });
+
+                            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            CustomDialog = builder.create();
+                            CustomDialog.show();
+                        }
+
                     }
                 });
             }
@@ -100,13 +130,15 @@ AlertDialog CustomDialog;
         View mView;
         SimpleDraweeView img;
         ImageView profvericon;
-        TextView profname,profphone,profverify;
+        TextView profname,profphone,profverify,profrevenue,profsolditems;
 
 
         public BlogViewHolder(View itemView){
             super(itemView);
             mView=itemView;
             img=mView.findViewById(R.id.profimg);
+            profrevenue=mView.findViewById(R.id.revenue);
+            profsolditems=mView.findViewById(R.id.sold_items);
             profname=mView.findViewById(R.id.profname);
             profphone=mView.findViewById(R.id.profphone);
             profverify=mView.findViewById(R.id.profverify);

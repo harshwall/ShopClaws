@@ -26,17 +26,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class VizAViz extends AppCompatActivity {
-    LinearLayout layout;
-    RelativeLayout layout_2;
-    ImageView sendButton;
-    EditText messageArea;
-    ScrollView scrollView;
-    Firebase reference1, reference2;
-    android.support.v7.widget.Toolbar toolbar;
-    ImageButton back;
-    TextView tv_uname;
-    String imgchat;
-    SimpleDraweeView chatimg;
+    private LinearLayout layout;
+    private RelativeLayout layout_2;
+    private ImageView sendButton;
+    private EditText messageArea;
+    private ScrollView scrollView;
+    private Firebase reference1, reference2;
+    private android.support.v7.widget.Toolbar toolbar;
+    private ImageButton back;
+    private TextView tv_uname;
+    private String imgchat;
+    private SimpleDraweeView chatimg;
 
 
     @Override

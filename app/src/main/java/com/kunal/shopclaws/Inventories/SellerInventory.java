@@ -164,6 +164,7 @@ public class SellerInventory extends AppCompatActivity implements NavigationView
         }
         else{
             super.onBackPressed();
+            finish();
         }
     }
 
@@ -214,13 +215,6 @@ public class SellerInventory extends AppCompatActivity implements NavigationView
             return true;
         }
 
-
-
-        else {
-            startActivity(new Intent(SellerInventory.this, NotificationActivity.class));
-
-
-        }
         return super.onOptionsItemSelected(item);
     }
 

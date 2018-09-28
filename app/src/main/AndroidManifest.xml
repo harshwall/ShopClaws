@@ -5,27 +5,42 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:hardwareAccelerated="false"
+        android:icon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginRegister.MainActivity" />
-        <activity android:name=".LoginRegister.RegisterActivity" />
-        <activity android:name=".LoginRegister.PhoneAuth" />
-        <activity android:name=".Utility.GraphRevenue" />
-        <activity android:name=".LoginRegister.StartActivity">
+        <activity
+            android:name=".Utility.WelcomeScreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".LoginRegister.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginRegister.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginRegister.PhoneAuth"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Utility.GraphRevenue"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginRegister.StartActivity"
+            android:screenOrientation="portrait"></activity>
 
         <receiver android:name=".LoginRegister.SmsListener">
             <intent-filter>
@@ -33,24 +48,47 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".LoginRegister.RegisterActivityAdmin" />
+        <activity
+            android:name=".LoginRegister.RegisterActivityAdmin"
+            android:screenOrientation="portrait" />
         <activity android:name=".Inventories.SellerInventory" />
         <activity android:name=".Inventories.AdminInventory" />
-        <activity android:name=".UploadImage.UploadImage" />
+        <activity
+            android:name=".UploadImage.UploadImage"
+            android:screenOrientation="portrait" />
         <activity android:name=".Inventories.ItemDetailsActivity" />
-        <activity android:name=".Profile.MyProfile" />
-        <activity android:name=".Profile.Seller_Profiles" />
-        <activity android:name=".Utility.PushNotification" />
+        <activity
+            android:name=".Profile.MyProfile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Profile.Seller_Profiles"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Utility.PushNotification"
+            android:screenOrientation="portrait" />
         <activity android:name=".Chat.GlobalChat" />
         <activity android:name=".Chat.UserDetailsActivitySalespersons" />
         <activity android:name=".Chat.VizAViz" />
-        <activity android:name=".Chat.ChooseUser" />
+        <activity
+            android:name=".Chat.ChooseUser"
+            android:screenOrientation="portrait" />
         <activity android:name=".Chat.UserDetailsActivityManagers" />
         <activity android:name=".Inventories.SearchBarActivity" />
         <activity android:name=".Utility.NotificationActivity" />
-        <activity android:name=".Utility.LeaderboardActivity" />
-        <activity android:name=".Utility.MLPrediction"></activity>
-        <activity android:name=".Utility.MyGraph"></activity>
+        <activity
+            android:name=".Utility.LeaderboardActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Utility.MLPrediction" />
+        <activity android:name=".Utility.MyGraph" />
+        <activity
+            android:name=".LoginRegister.RequestOtp"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginRegister.ChangePassword"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginRegister.OtpForgotPassword"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

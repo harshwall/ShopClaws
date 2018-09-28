@@ -4,23 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="20dp"
+    android:background="@drawable/grad_bg"
     tools:context=".LoginRegister.PhoneAuth"
-    android:layout_marginTop="100dp">
-    <com.alimuzaffar.lib.pin.PinEntryEditText
+      >
+     <TextView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:id="@+id/auth_lable"
+         android:text="Enter Your OTP"
+         android:textSize="30dp"
+         android:gravity="center"
+         android:textStyle="bold"
+         />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="match_parent"
+        android:layout_marginTop="40dp"
+        android:layout_height="100dp"
+        android:id="@+id/otp_icon"
+        android:src="@drawable/otp"
+
+        app:layout_constraintTop_toBottomOf="@+id/auth_lable"
+        />
+    <com.goodiebag.pinview.Pinview
+        android:id="@+id/otp"
+        app:pinBackground="@color/white"
+         app:layout_constraintTop_toBottomOf="@+id/otp_icon"
+        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:cursorVisible="false"
-        android:digits="1234567890"
-        android:inputType="number"
-        android:maxLength="6"
-        android:textIsSelectable="false"
-        android:textSize="20sp"
-        app:pinAnimationType="popIn"
-        android:id="@+id/otp"/>
+        app:pinWidth="30dp"
+        app:pinHeight="30dp"
+        app:pinLength="6"
+
+        app:cursorVisible="false"
+        app:forceKeyboard="true"
+        app:inputType="number"
+        app:password="true"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/selector_xml_name"
         app:layout_constraintTop_toBottomOf="@+id/otp"
         android:text="Submit"
         android:textSize="25sp"/>
@@ -28,8 +54,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/resend"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/selector_xml_name"
         app:layout_constraintTop_toBottomOf="@+id/btn"
         android:text="Resend OTP"
+
         android:textSize="25sp"/>
 
 </android.support.constraint.ConstraintLayout>

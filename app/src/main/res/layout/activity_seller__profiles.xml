@@ -4,11 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".Profile.Seller_Profiles">
 
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/recyclerviewadmin"
-        android:scrollbars="vertical"
+        android:scrollbars="horizontal"
+
+
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

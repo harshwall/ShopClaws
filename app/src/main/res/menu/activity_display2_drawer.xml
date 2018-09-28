@@ -43,11 +43,11 @@
             <item
                 android:id="@+id/graph"
                 android:icon="@drawable/ic_graphic_eq_black_24dp"
-                android:title="Graph"/>
+                android:title="Performance Index"/>
             <item
                 android:id="@+id/graph2"
                 android:icon="@drawable/ic_graphic_eq_black_24dp"
-                android:title="My Graph"/>
+                android:title="My Sales"/>
             <item
                 android:id="@+id/predictgraph"
                 android:icon="@drawable/ic_assessment_black_24dp"

@@ -71,7 +71,7 @@ public class UploadImage extends AppCompatActivity implements View.OnClickListen
         et_price=findViewById(R.id.Price12);
         et_desc=findViewById(R.id.desc);
         et_stcksize=findViewById(R.id.stock);
-        buttonUpload = findViewById(R.id.buttonUpload);
+        buttonUpload = findViewById(R.id.buttonUplaod);
         spin=findViewById(R.id.spinner1);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(UploadImage.this,R.array.status,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
