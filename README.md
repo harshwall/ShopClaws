@@ -28,7 +28,7 @@ download required libraries(automatically done by gradle) and run the app.
 ## Advance Feature
 
 1. There  is a chat for personal communication between all the
-  employees and a chat for among all the
+  employees and chat for among all the
   employees in the sales team (including the admin).
 2. Admin is able to send notices through the app to all salespersons,
   which is visible in form of notifications in app.
