@@ -60,7 +60,13 @@ Android studio 3.0 or above and a Network connection
 * Feel free to report issues and bugs for improving the user experience
 * Fork and contribute
 
+## ScreenShots
 
+<p>
+<img src="https://github.com/kunalmnnit/ShopClaws/blob/master/Screenshot_2018-09-27-03-49-44-654_com.kunal.shopclaws.png" alt="HomeActivity" height="400px">
+<img src="https://github.com/kunalmnnit/ShopClaws/blob/master/Screenshot_2018-09-27-03-51-28-624_com.kunal.shopclaws.png" alt="Sales Prediction" height="400px">
+<img src="https://github.com/kunalmnnit/ShopClaws/blob/master/Screenshot_2018-09-27-11-20-58-571_com.kunal.shopclaws.png" alt="Chat Support" height="400px">
+<p>
 
 ## Developers
 
