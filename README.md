@@ -1,5 +1,5 @@
-# Sales Team Management
-
+<p>
+<img src="./logo.png" width="400px"><br>
 This is an app for management of a sales team led by an admin. The
 admin wants to display all the commodities (and their quantities) present in the
 inventory currently. This app will have two types of login- Admin and Salesperson.
@@ -7,6 +7,7 @@ Now as the salespersons will sell a commodity, they will have to make an entry i
 the app so that the quantity of the commodity sold by the salesperson can be
 removed from the inventory. Each commodity as a profit (in rupees) associated with
 it that the firm will have on the sale of the commodity. This is extensively based on Firebase
+<p>
 
 ## Getting Started
 
